@@ -12,7 +12,7 @@ from models.place import Place
                  strict_slashes=False)
 def all_reviews(place_id):
     """ Retrieves the list of all reviews. """
-    place = storage.get("Place", place_id)
+    place = storage.get(Place, place_id)
     if place is None:
         abort(404)
     reviews = []
@@ -25,7 +25,7 @@ def all_reviews(place_id):
                  strict_slashes=False)
 def one_review(review_id):
     """ Retrieves a single review object. """
-    review = storage.get("Review", review_id)
+    review = storage.get(Review, review_id)
     if review is None:
         abort(404)
     return jsonify(review.to_dict())
@@ -35,7 +35,7 @@ def one_review(review_id):
                  strict_slashes=False)
 def delete_review(review_id):
     """Deletes a review object."""
-    review = storage.get("Review", review_id)
+    review = storage.get(Review, review_id)
     if review is None:
         abort(404)
     review.delete()
@@ -47,7 +47,7 @@ def delete_review(review_id):
                  strict_slashes=False)
 def create_review(place_id):
     """ Creates a new review object. """
-    place = storage.get("Place", place_id)
+    place = storage.get(Place, place_id)
     if place is None:
         abort(404)
     if not request.get_json():
@@ -55,7 +55,7 @@ def create_review(place_id):
     kwargs = request.get_json()
     if 'user_id' not in kwargs:
         return make_response(jsonify({'error': 'Missing user_id'}), 400)
-    user = storage.get("User", kwargs['user_id'])
+    user = storage.get(User, kwargs['user_id'])
     if user is None:
         abort(404)
     if 'text' not in kwargs:
@@ -70,7 +70,7 @@ def create_review(place_id):
                  strict_slashes=False)
 def update_review(review_id):
     """ Updates a review object. """
-    review = storage.get("Review", review_id)
+    review = storage.get(Review, review_id)
     if review is None:
         abort(404)
     if not request.get_json():
