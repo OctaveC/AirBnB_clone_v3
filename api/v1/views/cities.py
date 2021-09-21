@@ -22,7 +22,7 @@ def get_cities(state_id):
 
 @app_views.route('/cities/<string:city_id>', methods=['GET'],
                  strict_slashes=False)
-def one_city(state_id):
+def get_city(city_id):
     """ Retrieves a single city object. """
     city = storage.get(City, city_id)
     if city is None:
@@ -40,7 +40,6 @@ def delete_city(state_id):
     city.delete()
     storage.save()
     return (jsonify({}))
-
 
 
 @app_views.route('/states/<string:state_id>/cities/', methods=['POST'],
