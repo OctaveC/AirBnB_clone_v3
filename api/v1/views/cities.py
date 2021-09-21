@@ -2,13 +2,14 @@
 """ visual cities.py """
 from flask import jsonify, abort, make_response, request
 from api.v1.views import app_views
-from models.state import State
-from models.state import City
 from models import storage
+from models.state import City
+from models.state import State
 
 
-@app_views.route('/states/<string:state_id>/cities', methods=['GET'], strict_slashes=False)
-def all_city():
+@app_views.route('/states/<string:state_id>/cities', methods=['GET'],
+                 strict_slashes=False)
+def get_cities(state_id):
     """ Retrieves the list of all cities. """
     state = storage.get(State, state_id)
     if state is None:
@@ -41,7 +42,9 @@ def delete_city(state_id):
     return (jsonify({}))
 
 
-@app_views.route('/states/<string:state_id>/cities/', methods=['POST'], strict_slashes=False)
+
+@app_views.route('/states/<string:state_id>/cities/', methods=['POST'],
+                 strict_slashes=False)
 def create_city():
     """ Creates a new city object. """
     state = storage.get(State, state_id)
