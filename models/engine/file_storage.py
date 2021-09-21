@@ -71,8 +71,13 @@ class FileStorage:
 
     def get(self, cls, id):
         """ Method to retrieve one object based on class and id. """
-        key = cls + '.' + id
-        return self.all(cls).get(key)
+        from models import storage
+        stor = storage.all(cls)
+        key = cls.__name__ + "." + id
+        if key in stor:
+            return stor.get(key)
+        else:
+            return None
 
     def count(self, cls=None):
         """ Counts the number of objects in storage. """
