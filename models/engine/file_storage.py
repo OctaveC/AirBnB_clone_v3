@@ -11,6 +11,8 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
+from models import storage
+
 
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
@@ -71,7 +73,6 @@ class FileStorage:
 
     def get(self, cls, id):
         """ Method to retrieve one object based on class and id. """
-        from models import storage
         stor = storage.all(cls)
         key = cls.__name__ + "." + id
         if key in stor:

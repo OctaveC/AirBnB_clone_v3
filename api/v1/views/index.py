@@ -18,6 +18,7 @@ def status():
     ok = {"status": "OK"}
     return jsonify(ok)
 
+
 @app_views.route('/stats')
 def stats():
     """ Retrieves the amount of each objects by type. """
